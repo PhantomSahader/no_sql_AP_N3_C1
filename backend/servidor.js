@@ -16,6 +16,9 @@ mongoose.connect('mongodb://localhost:27017/test')
     .then(() => console.log('Conexión Exitosa!'))
     .catch((excepcion) => console.log('No ha sido posible conectarse por el siguiente error: ', excepcion));
 
+const port = process.env.port || 3000;
+aplicacion.listen(puerto, ()=>console.log(`Corriendo en el puerto ${port}`))
+
 // Crear el MODELO de datos
 const usuario = new mongoose.Schema({
     nombre: String,
