@@ -13,7 +13,7 @@ aplicacion.use(cors());
 aplicacion.use(express.json());
 
 // Crear la conexión a DB
-mongoose.connect('mongodb://localhost:27017/test')
+mongoose.connect('mongodb://localhost:27017/AP_N3_C1')
     .then(() => console.log('Conexión Exitosa!'))
     .catch((excepcion) => console.log('No ha sido posible conectarse por el siguiente error: ', excepcion));
 
