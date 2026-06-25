@@ -1,4 +1,5 @@
 window.onload = function () {
+    new DataTable('#example');
     obtenerPaises();
 };
 
@@ -166,7 +167,7 @@ function validarRut(campo) {
 
 async function obtenerPaises() {
     try {
-        const respuesta = await fetch('http://localhost:3000/listadoPaises');
+        const respuesta = await fetch('http://localhost:3000/paises');
         const paises = await respuesta.json();
 
         const selectPaises = document.getElementById('selectPais');
@@ -174,7 +175,7 @@ async function obtenerPaises() {
         Object.entries(paises).forEach(([key, pais]) => {
             const opcion = document.createElement('option');
             opcion.value = pais.iso2;
-            opcion.textContent = pais.nacionalidad;
+            opcion.textContent = pais.nombre;
             selectPaises.appendChild(opcion);
         });
     } catch (error) {

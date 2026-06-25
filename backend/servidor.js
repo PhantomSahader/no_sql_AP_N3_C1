@@ -31,6 +31,8 @@ const usuario = new mongoose.Schema({
     genero: String,
     nacionalidad: String
 });
+// Crear un OBJETO en base al MODELO usuario
+const Usuario = mongoose.model('Usuario', usuario, 'usuarios');
 
 const pais = new mongoose.Schema({
     nombre: String,
@@ -39,9 +41,7 @@ const pais = new mongoose.Schema({
     codigoPais: String,
     nacionalidad: String
 });
-
-// Crear un OBJETO en base al MODELO
-const Usuario = mongoose.model('Usuario', usuario, 'usuarios');
+// Crear un OBJETO en base al MODELO usuario
 const Pais = mongoose.model('Pais', pais, 'paises');
 
 // Crear el método para CREAR esos objetos en DB
@@ -60,11 +60,22 @@ aplicacion.post('/guardarUsuario', async (request, response) => {
 });
 
 // Crear método para obtener objetos desde la DB
-aplicacion.get('/listadoUsuarios'
+aplicacion.get('/usuarios', async (request, response) => {
+    try {
+        const usuarios = await Usuario.find().exec();
+        if (!usuarios || usuarios.length === 0) {
+            return response.status(404).json({ mensaje: 'No se encontraron usuarios registrados.' });
+        }
+
+        response.status(200).json(usuarios);
+    } catch (error) {
+        response.status(500).json({ mensaje: 'No ha sido posible obtener los datos: ', error })
+    }
+}
 
 );
 
-aplicacion.get('/listadoPaises', async (request, response) => {
+aplicacion.get('/paises', async (request, response) => {
     try {
         const paises = await Pais.find().exec();
         if (!paises || paises.length === 0) {
