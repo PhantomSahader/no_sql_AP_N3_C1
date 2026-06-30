@@ -20,6 +20,13 @@ mongoose.connect('mongodb://localhost:27017/AP_N3_C1')
 const port = process.env.port || 3000;
 aplicacion.listen(puerto, () => console.log(`Corriendo en el puerto ${port}`))
 
+const direccion = new mongoose.Schema({
+    comuna: String,
+    calle: String,
+    numero: String,
+    departamento: String
+});
+
 // Crear el MODELO de datos
 const usuario = new mongoose.Schema({
     nombre: String,
@@ -29,7 +36,8 @@ const usuario = new mongoose.Schema({
     contrasena: String,
     nacimiento: Date,
     genero: String,
-    nacionalidad: String
+    nacionalidad: String,
+    direccion:[direccion]
 });
 // Crear un OBJETO en base al MODELO usuario
 const Usuario = mongoose.model('Usuario', usuario, 'usuarios');
