@@ -1,5 +1,4 @@
 window.onload = function () {
-    new DataTable('#example');
     obtenerPaises();
     obtenerComunas();
 };
