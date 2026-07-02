@@ -63,10 +63,14 @@ const Pais = mongoose.model('Pais', pais, 'paises');
 // Crear el método para CREAR esos objetos en DB
 aplicacion.post('/guardarUsuario', async (request, response) => {
     try {
-        const { nombre, email, rut, telefono, contrasena, nacimiento, genero, nacionalidad } = request.body;
+        const { nombre, email, rut, telefono, contrasena, nacimiento, genero, nacionalidad, direccion } = request.body;
+
         const saltRounds = 10;
         const contrasenaEncriptada = await bcrypt.hash(contrasena, saltRounds);
-        const nuevoUsuario = new Usuario({ nombre, email, rut, telefono, contrasena: contrasenaEncriptada, nacimiento, genero, nacionalidad });
+
+        const jsonDireccion = JSON.parse(direccion);
+
+        const nuevoUsuario = new Usuario({ nombre, email, rut, telefono, contrasena: contrasenaEncriptada, nacimiento, genero, nacionalidad, direccion: jsonDireccion });
 
         await nuevoUsuario.save();
         response.status(200).json({ mensaje: 'Datos almacenados correctamente.' });

@@ -12,8 +12,10 @@ function validarFormulario() {
     let contrasena = document.getElementById('inputContrasena');
     let repContrasena = document.getElementById('inputRepetirContrasena');
     let fechaNacimiento = document.getElementById('inputFechaNac');
-    let genero = document.querySelector('input[name="radioGenero"]:checked');
+    let genero = document.getElementById('selectGenero');
     let pais = document.getElementById('selectPais');
+    let comuna = document.getElementById('selectComuna');
+    let calle = document.getElementById('inputCalle');
     let formularioValido = true;
 
     if (!validarCampo(nombre)) {
@@ -44,7 +46,19 @@ function validarFormulario() {
         formularioValido = false
     }
 
+    if (!validarCampo(genero)) {
+        formularioValido = false
+    }
+
     if (!validarCampo(pais)) {
+        formularioValido = false
+    }
+
+    if (!validarCampo(comuna)) {
+        formularioValido = false
+    }
+
+    if (!validarCampo(calle)) {
         formularioValido = false
     }
 
@@ -53,6 +67,15 @@ function validarFormulario() {
 
         const formulario = document.getElementById('registroUsuario');
         const datosFormulario = new FormData(formulario);
+
+        const direccion = {
+            comuna: datosFormulario.get('comuna'),
+            calle: datosFormulario.get('calle'),
+            numero: datosFormulario.get('numero'),
+            departamento: datosFormulario.get('departamento')
+        }
+        datosFormulario.set('direccion', JSON.stringify(direccion));
+
         const data = Object.fromEntries(datosFormulario.entries());
 
         const enviarDatos = async () => {
